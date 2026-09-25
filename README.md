@@ -46,7 +46,8 @@ The conversational style translates directly to text-based chat, messaging apps,
 
 ```text
 career-discovery-skill/
-├── SKILL.md                 # Main agent skill definition (150 lines)
+├── assets/                  # Documentation assets
+│   └── vapi_setup.png       # Vapi assistant configuration screenshot
 ├── references/              # Conceptual knowledge base
 │   ├── 01_vision.md         # Meaning, distinctions, and evidence of Vision
 │   ├── 02_impact.md         # Meaning, distinctions, and evidence of Impact
@@ -55,31 +56,33 @@ career-discovery-skill/
 │   └── 05_resources.md      # Meaning, distinctions, and evidence of Resources
 ├── templates/               # Reusable prompt templates
 │   └── system_prompt.md     # Company-agnostic system prompt template
+├── SKILL.md                 # Main agent skill definition (150 lines)
 └── README.md                # Project documentation
 ```
 
 ---
 
-## Installation & Setup
+## Vapi Integration Guide
 
-### 1. Antigravity Agent Workspace (Project Level)
-To use this skill within an Antigravity-enabled repository or workspace:
-1. Create a `.agents/skills/` directory at the root of your project if it doesn't already exist.
-2. Copy the `career-discovery-skill` folder into `.agents/skills/career-discovery`:
-   ```bash
-   mkdir -p .agents/skills
-   cp -r /path/to/career-discovery-skill .agents/skills/career-discovery
-   ```
-3. The agent will automatically discover `career-discovery` via progressive disclosure and activate it when prompts relate to career exploration or self-discovery.
+Follow these steps to deploy this career discovery framework as a voice assistant using [Vapi](https://vapi.ai):
 
-### 2. Global Agent Installation (Machine-Wide)
-To make this skill available across all projects on your machine:
-- Copy the folder into your global Antigravity skills directory:
-  - **Linux / macOS**: `~/.gemini/config/skills/career-discovery`
-  - **Windows**: `%USERPROFILE%\.gemini\config\skills\career-discovery`
+1. **Create an Assistant**:
+   - Create a simple voice assistant with Vapi **Composer**.
+   - Navigate to the newly created assistant (**Build > Assistants > [your-assistant]**).
 
-### 3. Standalone Voice / Chat Agent Integration
-If integrating into a custom LLM pipeline (e.g., OpenAI Realtime API, LiveKit, ElevenLabs, or custom LangChain/LlamaIndex agents):
-1. Supply `SKILL.md` as the core system instruction or persona runbook.
-2. Make the five files inside [`references/`](./references/) available to the agent via tool retrieval, vector search, or bundled system context.
-3. Configure your voice agent's turn-taking thresholds to allow natural pauses, as users frequently hesitate when reflecting on their aspirations.
+2. **Configure System Prompt**:
+   - Open [`templates/system_prompt.md`](./templates/system_prompt.md) and copy its entire content.
+   - Paste it directly into the **System Prompt** window in the assistant configuration.
+
+3. **Upload Knowledge Files**:
+   - In the assistant configuration, locate the **Files** section.
+   - Upload the 5 knowledge documents from the [`references/`](./references/) folder (`01_vision.md`, `02_impact.md`, `03_interest.md`, `04_skill.md`, `05_resources.md`).
+   - After successful upload, **select all 5 files** so the voice assistant has complete grounding across the 5 pillars.
+
+4. **Review Configuration**:
+   - Ensure your configuration matches the setup below:
+
+![Vapi Assistant Setup](assets/vapi_setup.png)
+
+5. **Test Your Voice Assistant**:
+   - Click the **Talk** button in Vapi Composer to start an interactive spoken discovery session.
